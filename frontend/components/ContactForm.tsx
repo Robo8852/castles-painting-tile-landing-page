@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -10,9 +10,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Client, Local } from "~backend/client";
+import { useToast } from "@/components/ui/use-toast";
+import backend from "~backend/client";
 
 export default function ContactForm() {
+  const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -22,8 +24,6 @@ export default function ContactForm() {
     message: "",
   });
 
-  const backend = new Client(Local);
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -32,7 +32,11 @@ export default function ContactForm() {
       const response = await backend.contact.submit(formData);
 
       if (response.success) {
-        alert(`Success! ${response.message}`);
+        toast({
+          title: "Success!",
+          description: response.message,
+        });
+
         setFormData({
           name: "",
           phone: "",
@@ -40,12 +44,14 @@ export default function ContactForm() {
           projectType: "",
           message: "",
         });
-      } else {
-        alert('Failed to submit form. Please call us directly at (941) 447-9191.');
       }
     } catch (error) {
       console.error("Form submission error:", error);
-      alert('Failed to submit form. Please call us directly at (941) 447-9191.');
+      toast({
+        title: "Error",
+        description: "Failed to submit form. Please call us directly.",
+        variant: "destructive",
+      });
     } finally {
       setIsSubmitting(false);
     }
@@ -56,17 +62,17 @@ export default function ContactForm() {
       <div className="container mx-auto px-4">
         <div className="max-w-2xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="font-bold text-3xl md:text-4xl text-[#0A0A0A] mb-4">
+            <h2 className="font-michroma text-3xl md:text-4xl font-bold text-[#0A0A0A] mb-4">
               Request Your Free Estimate
             </h2>
-            <p className="text-lg text-[#4A4A4A]">
+            <p className="font-inter text-lg text-[#4A4A4A]">
               Tell us about your project and we'll get back to you promptly
             </p>
           </div>
 
           <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-md space-y-6">
             <div className="space-y-2">
-              <Label htmlFor="name" className="font-medium">
+              <Label htmlFor="name" className="font-inter font-medium">
                 Name *
               </Label>
               <Input
@@ -75,12 +81,13 @@ export default function ContactForm() {
                 required
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                className="font-inter"
                 placeholder="Your full name"
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="phone" className="font-medium">
+              <Label htmlFor="phone" className="font-inter font-medium">
                 Phone *
               </Label>
               <Input
@@ -89,12 +96,13 @@ export default function ContactForm() {
                 required
                 value={formData.phone}
                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                className="font-inter"
                 placeholder="(941) 123-4567"
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="email" className="font-medium">
+              <Label htmlFor="email" className="font-inter font-medium">
                 Email *
               </Label>
               <Input
@@ -103,12 +111,13 @@ export default function ContactForm() {
                 required
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                className="font-inter"
                 placeholder="your@email.com"
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="projectType" className="font-medium">
+              <Label htmlFor="projectType" className="font-inter font-medium">
                 Type of Project *
               </Label>
               <Select
@@ -116,7 +125,7 @@ export default function ContactForm() {
                 onValueChange={(value) => setFormData({ ...formData, projectType: value })}
                 required
               >
-                <SelectTrigger>
+                <SelectTrigger className="font-inter">
                   <SelectValue placeholder="Select a service" />
                 </SelectTrigger>
                 <SelectContent>
@@ -133,14 +142,14 @@ export default function ContactForm() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="message" className="font-medium">
+              <Label htmlFor="message" className="font-inter font-medium">
                 Message
               </Label>
               <Textarea
                 id="message"
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                className="min-h-32"
+                className="font-inter min-h-32"
                 placeholder="Tell us about your project..."
               />
             </div>
@@ -148,18 +157,11 @@ export default function ContactForm() {
             <Button
               type="submit"
               disabled={isSubmitting}
-              className="w-full bg-[#D62828] hover:bg-[#F94144] text-white text-lg py-6 rounded-lg transition-all"
-              size="lg"
+              className="w-full bg-[#D62828] hover:bg-[#F94144] text-white font-inter text-lg py-6 rounded-lg transition-all"
             >
               {isSubmitting ? "Submitting..." : "Request Free Estimate"}
             </Button>
           </form>
-
-          <div className="mt-8 text-center">
-            <p className="text-gray-600">
-              Or call us directly at <span className="font-semibold text-[#D62828]">(941) 447-9191</span>
-            </p>
-          </div>
         </div>
       </div>
     </section>

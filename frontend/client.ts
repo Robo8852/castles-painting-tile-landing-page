@@ -82,6 +82,7 @@ export interface ClientOptions {
 /**
  * Import the endpoint handlers to derive the types for the client.
  */
+import { list as api_contact_list_list } from "~backend/contact/list";
 import { submit as api_contact_submit_submit } from "~backend/contact/submit";
 
 export namespace contact {
@@ -91,12 +92,16 @@ export namespace contact {
 
         constructor(baseClient: BaseClient) {
             this.baseClient = baseClient
+            this.list = this.list.bind(this)
             this.submit = this.submit.bind(this)
         }
 
-        /**
-         * Submits a new contact form inquiry and stores it in the database.
-         */
+        public async list(): Promise<ResponseType<typeof api_contact_list_list>> {
+            // Now make the actual call to the API
+            const resp = await this.baseClient.callTypedAPI(`/contact/list`, {method: "GET", body: undefined})
+            return JSON.parse(await resp.text(), dateReviver) as ResponseType<typeof api_contact_list_list>
+        }
+
         public async submit(params: RequestType<typeof api_contact_submit_submit>): Promise<ResponseType<typeof api_contact_submit_submit>> {
             // Now make the actual call to the API
             const resp = await this.baseClient.callTypedAPI(`/contact/submit`, {method: "POST", body: JSON.stringify(params)})

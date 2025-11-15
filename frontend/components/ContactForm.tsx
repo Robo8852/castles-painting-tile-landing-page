@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Client, Local } from "~backend/client";
+import { Client, Local } from "@/client";
 
 export default function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);

@@ -19,7 +19,8 @@ All QR codes are located in the **`qr-codes/`** directory and automatically link
 
 | Size | File | Use Case | Dimensions |
 |------|------|----------|------------|
-| **Small** | `castle-painting-qr-small.png` | Business cards, flyers, stickers | 512px |
+| **Small** | `castle-painting-qr-small.p
+ng` | Business cards, flyers, stickers | 512px |
 | **Medium** | `castle-painting-qr-medium.png` | Posters, banners, window decals | 1024px |
 | **Large** | `castle-painting-qr-large.png` | Vehicle wraps, medium signs | 2048px |
 | **Trailer** | `castle-painting-qr-trailer.png` | **Large trailer graphics, billboards** | 4096px |

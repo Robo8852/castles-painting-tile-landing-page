@@ -835,12 +835,12 @@ export enum ErrCode {
     Unauthenticated = "unauthenticated",
 }
 
-// Use production URL for Vercel deployment, local URL for development
+// Use production URL for deployment, local URL for development
 const getBaseURL = () => {
   if (import.meta.env.MODE === 'development') {
     return Local; // localhost:4000
   }
-  return "https://castle-paint-tile-backend-ctai.encr.app"; // production Encore URL
+  return "https://castles-painting-tile-backend-q4mi.encr.app"; // production Encore URL
 };
 
 export default new Client(getBaseURL(), { requestInit: { credentials: "include" } });

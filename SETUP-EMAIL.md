@@ -73,7 +73,7 @@ The emails will look like this:
 **Still having issues?**
 - Email notifications fail silently - the form will still save to database
 - Check the admin dashboard at `/admin` to see all submissions
-- Password: `castle2025`
+- Password: `castle2024`
 
 ## Cost
 

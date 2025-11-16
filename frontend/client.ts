@@ -81,41 +81,9 @@ export interface ClientOptions {
 
 /**
  * Import the endpoint handlers to derive the types for the client.
- * Note: These imports are removed for Vercel deployment - types are hardcoded
  */
-// import { list as api_contact_list_list } from "~backend/contact/list";
-// import { submit as api_contact_submit_submit } from "~backend/contact/submit";
-
-// Hardcoded types for deployment compatibility
-interface ContactListResponse {
-  id: number;
-  name: string;
-  phone: string;
-  email: string;
-  project_type: string;
-  message: string;
-  created_at: string;
-}
-
-interface ContactSubmitRequest {
-  name: string;
-  phone: string;
-  email: string;
-  projectType: string;
-  message?: string;
-}
-
-interface ContactSubmitResponse {
-  success: boolean;
-  message: string;
-}
-
-// Mock types to replace the imported ones
-const api_contact_list_list = async (): Promise<ContactListResponse[]> => [];
-const api_contact_submit_submit = async (req: ContactSubmitRequest): Promise<ContactSubmitResponse> => ({
-  success: true,
-  message: "Thank you for your inquiry! Chris will contact you shortly."
-});
+import { list as api_contact_list_list } from "~backend/contact/list";
+import { submit as api_contact_submit_submit } from "~backend/contact/submit";
 
 export namespace contact {
 
@@ -835,12 +803,4 @@ export enum ErrCode {
     Unauthenticated = "unauthenticated",
 }
 
-// Use production URL for deployment, local URL for development
-const getBaseURL = () => {
-  if (import.meta.env.MODE === 'development') {
-    return Local; // localhost:4000
-  }
-  return "https://castles-painting-tile-backend-q4mi.encr.app"; // production Encore URL
-};
-
-export default new Client(getBaseURL(), { requestInit: { credentials: "include" } });
+export default new Client(import.meta.env.VITE_CLIENT_TARGET, { requestInit: { credentials: "include" } });

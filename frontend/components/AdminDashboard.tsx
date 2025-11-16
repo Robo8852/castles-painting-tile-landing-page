@@ -1,16 +1,6 @@
 import { useState, useEffect } from "react";
-import { Client, Local, Environment } from "@/client";
-
-// Type definitions for deployment compatibility
-interface ContactSubmission {
-  id: number;
-  name: string;
-  phone: string;
-  email: string;
-  project_type: string;
-  message: string;
-  created_at: string;
-}
+import backend from "~backend/client";
+import type { ContactSubmission } from "~backend/contact/list";
 
 export default function AdminDashboard() {
   const [submissions, setSubmissions] = useState<ContactSubmission[]>([]);
@@ -21,16 +11,12 @@ export default function AdminDashboard() {
     loadSubmissions();
   }, []);
 
-  // Use production Encore URL when deployed, localhost for development
-  const isProduction = !window.location.hostname.includes('localhost') && !window.location.hostname.includes('127.0.0.1');
-  const backend = new Client(isProduction ? Environment("castle-paint-tile-backend-ctai") : Local);
-
   const loadSubmissions = async () => {
     setLoading(true);
     setError("");
     try {
       const response = await backend.contact.list();
-      setSubmissions(response);
+      setSubmissions(response.submissions);
     } catch (err) {
       console.error("Failed to load submissions:", err);
       setError("Failed to load contact submissions");
@@ -39,7 +25,7 @@ export default function AdminDashboard() {
     }
   };
 
-  const formatDate = (date: Date | string) => {
+  const formatDate = (date: Date) => {
     return new Date(date).toLocaleString("en-US", {
       month: "short",
       day: "numeric",
@@ -123,7 +109,7 @@ export default function AdminDashboard() {
                   {submissions.map((submission) => (
                     <tr key={submission.id} className="hover:bg-gray-50">
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {formatDate(submission.created_at)}
+                        {formatDate(submission.createdAt)}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="text-sm font-medium text-gray-900">
@@ -140,7 +126,7 @@ export default function AdminDashboard() {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
-                          {getProjectTypeLabel(submission.project_type)}
+                          {getProjectTypeLabel(submission.projectType)}
                         </span>
                       </td>
                       <td className="px-6 py-4 text-sm text-gray-500 max-w-xs">

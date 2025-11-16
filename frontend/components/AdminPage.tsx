@@ -8,7 +8,7 @@ export default function AdminPage() {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (password === "castle2025") {
+    if (password === "castle2024") {
       setIsAuthenticated(true);
       setError("");
     } else {

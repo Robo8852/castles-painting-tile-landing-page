@@ -40,7 +40,7 @@
    - Backend requires Encore Cloud authentication
    - Contact form returns `ERR_CONNECTION_REFUSED`
    - Admin dashboard can't load submissions
-   - Developer logged into Encore.dev but needs to set up application
+   - ✅ Chris logged into Encore.dev via Google, ready for application deployment
 
 2. **Deployment Testing**
    - Frontend testing: 90% complete
@@ -61,7 +61,7 @@ User submits form → Frontend validates → API call to localhost:4000 → Back
 
 ### Admin Dashboard Access
 - **URL:** http://localhost:5174/admin
-- **Password:** castle2024
+- **Password:** castle2025
 - **Status:** Loads UI but can't fetch data (backend connection)
 
 ## Business & Legal Setup
@@ -77,8 +77,9 @@ User submits form → Frontend validates → API call to localhost:4000 → Back
 
 ### Service Accounts Required
 1. **Encore.dev** - Hosting, database, API deployment
-   - Developer account: Created and logged in
-   - Needs: Application setup + deployment
+   - Client account: ✅ Chris connected via Google (castlespaintingandtile@gmail.com)
+   - GitHub integration: ✅ Connected to castlespaintingandtile-cli
+   - Needs: Application deployment to Chris's account
    - Cost: Free tier initially, then usage-based
 
 2. **Resend.com** - Email service for contact forms
@@ -88,7 +89,7 @@ User submits form → Frontend validates → API call to localhost:4000 → Back
 
 3. **GitHub** - Code repository
    - Current: Developer's account
-   - Future: Transfer to Chris's account
+   - Future: Transfer to castlespaintingandtile-cli/castle-paint-tile
 
 ## Contract Terms (Key Points)
 - **Payment:** $1,500 upfront, non-refundable
@@ -165,7 +166,7 @@ encore db shell [database_name]
 
 ### Admin Access
 - **Local:** http://localhost:5174/admin
-- **Password:** castle2024
+- **Password:** castle2025
 - **Production:** [Will be Encore URL after deployment]
 
 ### Email Configuration

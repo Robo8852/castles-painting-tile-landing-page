@@ -4,3 +4,12 @@ encore.gen.cue
 /.encore
 node_modules
 /encore.gen
+
+# Developer-only documentation (not for client handover)
+DEVELOPER-HANDOVER-SOP.md
+DEVELOPMENT.md
+DEPLOYMENT-GUIDE.md
+SETUP-EMAIL.md
+
+# Internal project documentation
+PROJECT-CONTEXT-SUMMARY.md

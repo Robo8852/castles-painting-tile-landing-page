@@ -106,5 +106,5 @@ Your client now has a complete QR code marketing kit perfect for:
 - **Printed materials** of any size
 - **Digital sharing** across platforms
 
-**Generated with Claude Code** 🤖
+**Developed by Leo Reyes** 👨‍💻
 *Scalable. Professional. Future-Proof.*

@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Client, Local } from "~backend/client";
+import backend from "~backend/client";
 
 export default function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -21,8 +21,6 @@ export default function ContactForm() {
     projectType: "",
     message: "",
   });
-
-  const backend = new Client(Local);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

@@ -11,8 +11,21 @@ export default function App() {
   const [showAdmin, setShowAdmin] = useState(false);
 
   useEffect(() => {
-    const isAdminRoute = window.location.pathname === "/admin";
-    setShowAdmin(isAdminRoute);
+    const checkRoute = () => {
+      const isAdminRoute = window.location.hash === "#/admin";
+      setShowAdmin(isAdminRoute);
+    };
+
+    // Check initial route
+    checkRoute();
+
+    // Listen for hash changes
+    window.addEventListener('hashchange', checkRoute);
+
+    // Cleanup
+    return () => {
+      window.removeEventListener('hashchange', checkRoute);
+    };
   }, []);
 
   if (showAdmin) {

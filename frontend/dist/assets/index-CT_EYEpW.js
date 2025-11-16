@@ -22863,8 +22863,15 @@ function AdminPage() {
 function App() {
   const [showAdmin, setShowAdmin] = reactExports.useState(false);
   reactExports.useEffect(() => {
-    const isAdminRoute = window.location.pathname === "/admin";
-    setShowAdmin(isAdminRoute);
+    const checkRoute = () => {
+      const isAdminRoute = window.location.hash === "#/admin";
+      setShowAdmin(isAdminRoute);
+    };
+    checkRoute();
+    window.addEventListener("hashchange", checkRoute);
+    return () => {
+      window.removeEventListener("hashchange", checkRoute);
+    };
   }, []);
   if (showAdmin) {
     return /* @__PURE__ */ jsxRuntimeExports.jsx(AdminPage, {});
